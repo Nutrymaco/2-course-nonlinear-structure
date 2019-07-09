@@ -16,7 +16,7 @@ public:
         topRoot -> leftSon = NULL;
         topRoot -> value = number;
     };
-    ~Tree(){};
+
     void addValue(int number){
         Unit *root;
         root = this -> topRoot;
@@ -72,6 +72,14 @@ public:
         }
     }
 
+    void deleteRoot(Unit *root){
+        if (root->leftSon != NULL and root->leftSon->rightBrother != NULL) deleteRoot(root->leftSon->rightBrother);
+        if (root->leftSon != NULL) deleteRoot(root->leftSon);
+        delete root;
+    }
+    ~Tree(){
+        deleteRoot(topRoot);
+    }
 
 };
 
