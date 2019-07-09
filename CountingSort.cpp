@@ -31,10 +31,11 @@ class Queue{
     int top;
     int *array;
     Queue(int count){
-      array = new int(5);
+      array = new int(MAX);
       top = count;
     };
     ~Queue(){
+      delete array;
       top = -1;
     };
     int getLength();
@@ -72,10 +73,9 @@ void Queue::delElement(){
 }
 
 int main(){
-
-    Queue array, sorted_array;
-    int addl_array[MAX], act = 0;
     int n = 10, k = 50;
+    Queue array(n), sorted_array(k);
+    int addl_array[MAX], act = 0;
 
 
     // fill arrays

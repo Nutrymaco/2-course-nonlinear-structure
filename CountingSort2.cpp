@@ -34,7 +34,7 @@ public:
             size ++;
         }
         else{
-            int *new_array = new int[max_size + reserve_size];
+            int *new_array = new int[ + reserve_size];
 
             for (int i = 0; i < max_size; i++){
                 new_array[i] = array[i];
@@ -54,7 +54,8 @@ public:
         size--;
     }
     int getElement(int index){ // 1
-        return array[index];
+        int value = array[index];
+        return value;
     }
     int getMax(){
         int max = array[0];
@@ -73,21 +74,26 @@ public:
     int getSize(){
       return size;
     }
+    void sort();
+
+    ~Queue(){
+        delete []array;
+    }
 };
 
-Queue sort(Queue array){
-    int max = array.getMax(), min = array.getMin();
+void Queue::sort(){
+    int max = getMax(), min = getMin();
     int dif = max-min;
     int add_array[dif];
-    Queue new_array(array.getSize());
+    Queue new_array(getSize());
     int nop = 0;
     for (int i = 0; i < dif+1; i++){
         add_array[i] = 0;
     }
 
     nop += 1;
-    for (int i = 0; i < array.size; i++){ // 6n + 1
-        add_array[array.getElement(i) - min] ++; // 4
+    for (int i = 0; i < size; i++){ // 6n + 1
+        add_array[getElement(i) - min] ++; // 4
         nop += 6;
     }
 
@@ -102,14 +108,14 @@ Queue sort(Queue array){
         }
     }
     //  = 10n + 3k + 5
-    cout << "nop = " << nop << " n, k = " << array.getSize() << " " << dif << " time: " << clock()/10000.0 << endl;
-    return new_array;
+    cout << "nop = " << nop << " n, k = " << getSize() << " " << dif << " time: " << clock()/10000.0 << endl;
+    *array = *new_array.array;
 }
 
 
 int main(int argc, char const *argv[]) {
     Queue array = Queue(10);
     array.fillRandom();
-    sort(array);
-  return 0;
+    array.sort();
+    return 0;
 }
